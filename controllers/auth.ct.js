@@ -5,8 +5,6 @@ import Token from '../models/Token.js';
 import { generateTokens } from '../utils/token.util.js';
 import { v4 as uuidv4 } from 'uuid';
 
-const CLIENT_URL = process.env.CLIENT_URL;
-
 // STEP 1: Redirect to Google login
 export const googleLogin = (req, res) => {
   const redirect_uri =
@@ -88,7 +86,8 @@ export const googleCallback = async (req, res) => {
     });
 
     // 7. Redirect to frontend
-    res.redirect(`${CLIENT_URL}/dashboard`);
+
+    res.redirect(`${process.env.CLIENT_URL}/dashboard`);
   } catch (err) {
     console.error('Google OAuth Error:', err.message);
     res.status(500).send('Authentication failed');

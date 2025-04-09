@@ -9,10 +9,11 @@ export const authenticate = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.user = await User.findById(decoded.id).select('-__v');
     next();
   } catch (err) {
+    console.log(err);
     return res.status(401).json({ message: 'Invalid or expired token' });
   }
 };
